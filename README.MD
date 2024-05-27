@@ -30,6 +30,8 @@ php artisan key:generate
 
 Run: <br>
 ``
+cd ..
+cd ..
 docker-compose build
 docker-compose up nginx -d
 ``
