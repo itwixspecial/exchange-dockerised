@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: "nginx:stable-alpine"
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./src:/var/www
+    depends_on:
+      - php
+  php:
+    build:
+      context: dockerfiles
+      dockerfile: php.Dockerfile
+    volumes:
+      - ./src:/var/www
+ 
+  composer:
+    build:
+      context: dockerfiles
+      dockerfile: composer.Dockerfile
+    volumes:
+      - db_data:/var/www
+  artisan:
+    build:
+      context: dockerfiles
+      dockerfile: php.Dockerfile
+    volumes:
+      - ./src:/var/www
+    entrypoint: ["php", "/var/www/laravel/artisan"]
+
+volumes:
+  db_data:
