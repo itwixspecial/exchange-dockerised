@@ -12,31 +12,29 @@ cd exchange-dockerised
 
 Create .env:<br>
 ``
-cp src/.env.example src/.env
+cp src/laravel/.env.example src/laravel/.env
+``
+
+Run Migration && Generate keys:<br>
+``
+cd src/laravel
+composer install
+cp .env.example .env
+``
+<br>
+``
+php artisan migrate
+php artisan key:generate
 ``
 
 
 Run: <br>
 ``
+docker-compose build
 docker-compose up nginx -d
 ``
 
-Install composer <br>
-``
-docker-compose run composer install
-``
-
-
-Run Migration && Generate keys:<br>
-``
-docker-compose run artisan migrate
-``
 <br>
-``
-docker-compose run artisan key:generate   
-``
-
-
 Checkout:
 http://localhost/
 
